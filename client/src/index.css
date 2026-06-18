@@ -22,3 +22,13 @@
 .animate-scroll-up-3 {
   animation: scroll-up 20s linear infinite;
 }
+
+@layer base {
+  input:not([type="checkbox"]) {
+    @apply outline-none border border-gray-300 focus:ring focus:ring-blue-500 focus:border-blue-500 rounded-lg;
+  }
+
+  textarea {
+    @apply outline-none border border-gray-300 focus:ring focus:ring-blue-500 focus:border-blue-500 rounded-lg resize-none;
+  }
+}
