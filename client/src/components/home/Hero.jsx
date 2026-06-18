@@ -26,7 +26,7 @@ const Hero = () => {
             >
               Testimonials
             </a>
-            <a href="#cta" className="hover:text-indigo-600 transition">
+            <a href="#contact" className="hover:text-indigo-600 transition">
               Contact
             </a>
           </div>
@@ -71,13 +71,13 @@ const Hero = () => {
           <a href="/" className="text-white">
             Home
           </a>
-          <a href="#Features" className="text-white">
+          <a href="#features" className="text-white">
             Features
           </a>
-          <a href="#Testimonials" className="text-white">
+          <a href="#testimonials" className="text-white">
             Testimonials
           </a>
-          <a href="/3Contact" className="text-white">
+          <a href="/#contact" className="text-white">
             Contact
           </a>
           <button
