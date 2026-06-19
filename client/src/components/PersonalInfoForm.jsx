@@ -12,7 +12,7 @@ const PersonalInfoForm = ({
   data,
   onChange,
   removeBackground,
-  setReemoveBackground,
+  setRemoveBackground,
 }) => {
   const handleChange = (field, value) => {
     onChange({ ...data, [field]: value });
@@ -105,7 +105,7 @@ const PersonalInfoForm = ({
               <input
                 type="checkbox"
                 className="sr-only peer"
-                onChange={() => setReemoveBackground((prev) => !prev)}
+                onChange={() => setRemoveBackground((prev) => !prev)}
                 checked={removeBackground}
               />
               <div className="w-9 h-5 bg-slate-300 rounded-full peer peer-checked:bg-indigo-600 transition-colors duration-200">

@@ -13,6 +13,7 @@ import {
   User,
 } from "lucide-react";
 import PersonalInfoForm from "../components/PersonalInfoForm";
+import ResumePreview from "../components/ResumePreview";
 
 const ResumeBilder = () => {
   const { resumeId } = useParams();
@@ -30,10 +31,9 @@ const ResumeBilder = () => {
     public: false,
   });
 
-
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const [removeBackground, setRemoveBackground] = useState(false);
-  
+
   const loadExistingResume = async () => {
     const resume = dummyResumeData.find((resume) => resume._id === resumeId);
     if (resume) {
@@ -52,10 +52,9 @@ const ResumeBilder = () => {
 
   const activeSection = sections[activeSectionIndex];
 
- useEffect(() => {
-   loadExistingResume()
- }, [])
- 
+  useEffect(() => {
+    loadExistingResume();
+  }, [resumeId]);
 
   return (
     <div>
@@ -106,7 +105,7 @@ const ResumeBilder = () => {
                       )
                     }
                     className={`flex items-center gap-1 p-3 rounded-lg text-sm font-medium to-gray-600 hover:bg-indigo-50 transition-all ${activeSectionIndex === sections.length - 1 && "opacity-50"}`}
-                    disabled={activeSectionIndex === 0}
+                    disabled={activeSectionIndex === sections.length - 1}
                   >
                     Next <ChevronRight className="size-4" />
                   </button>
@@ -115,19 +114,26 @@ const ResumeBilder = () => {
               {/* Form Content */}
               <div className="space-y-6">
                 {activeSection.id === "personal" && (
-                  <PersonalInfoForm data={resumeData.personal_info} onChange={(data)=>setResumeData(prev=>({...prev, personal_info:data}))} removeBackground={removeBackground} setReemoveBackground={setRemoveBackground}/>
-                  )}
+                  <PersonalInfoForm
+                    data={resumeData.personal_info}
+                    onChange={(data) =>
+                      setResumeData((prev) => ({
+                        ...prev,
+                        personal_info: data,
+                      }))
+                    }
+                    removeBackground={removeBackground}
+                    setRemoveBackground={setRemoveBackground}
+                  />
+                )}
               </div>
             </div>
           </div>
           {/* Rignt Panel - Preview */}
           <div className="lg:col-span-7 max-lg:mt-6">
-            <div>
-              {/* --button-- */}
-            </div>
+            <div>{/* --button-- */}</div>
 
-            {/* --resume Preview-- */}
-
+            <ResumePreview data={resumeData} template={resumeData.template} accentColor={resumeData.accent_color}/>
           </div>
         </div>
       </div>
