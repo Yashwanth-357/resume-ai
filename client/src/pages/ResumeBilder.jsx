@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { dummyResumeData } from "../assets/assets";
 import {
   ArrowLeftIcon,
   Briefcase,
@@ -29,6 +30,10 @@ const ResumeBilder = () => {
     public: false,
   });
 
+
+  const [activeSectionIndex, setActiveSectionIndex] = useState(0);
+  const [removeBackground, setRemoveBackground] = useState(false);
+  
   const loadExistingResume = async () => {
     const resume = dummyResumeData.find((resume) => resume._id === resumeId);
     if (resume) {
@@ -36,9 +41,6 @@ const ResumeBilder = () => {
       document.title = resume.titel;
     }
   };
-  const [activeSectionIndex, setActiveSectionIndex] = useState(0);
-  const [removeBackground, setRemoveBackground] = useState(false);
-
   const sections = [
     { id: "personal", name: "Personal info", icon: User },
     { id: "summary", name: "Summary ", icon: FileText },
@@ -50,9 +52,10 @@ const ResumeBilder = () => {
 
   const activeSection = sections[activeSectionIndex];
 
-  useEffect(() => {
-    loadExistingResume();
-  }, []);
+ useEffect(() => {
+   loadExistingResume()
+ }, [])
+ 
 
   return (
     <div>
@@ -117,9 +120,15 @@ const ResumeBilder = () => {
               </div>
             </div>
           </div>
-
           {/* Rignt Panel - Preview */}
-          <div></div>
+          <div className="lg:col-span-7 max-lg:mt-6">
+            <div>
+              {/* --button-- */}
+            </div>
+
+            {/* --resume Preview-- */}
+
+          </div>
         </div>
       </div>
     </div>
