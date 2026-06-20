@@ -20,6 +20,7 @@ import ProfessionalSummeryForm from "../components/ProfessionalSummeryForm";
 import ExperienceForm from "../components/ExperienceForm";
 import EducationForm from "../components/EducationForm";
 import ProjectForm from "../components/ProjectForm";
+import SkillsForm from "../components/SkillsForm";
 
 const ResumeBilder = () => {
   const { resumeId } = useParams();
@@ -193,7 +194,19 @@ const ResumeBilder = () => {
                     }
                   />
                 )}
+                {activeSection.id === "skills" && (
+                  <SkillsForm
+                    data={resumeData.skills}
+                    onChange={(data) =>
+                      setResumeData((prev) => ({
+                        ...prev,
+                        skills: data,
+                      }))
+                    }
+                  />
+                )}
               </div>
+              <button className="bg-gradient-to-br from-green-100 to-green-200 ring-green-300 text-green-600 ring hover:ring-green-400 transition-all rounded-md py-2 px-6 mt-6 text-sm ">Save Changes</button>
             </div>
           </div>
           {/* Rignt Panel - Preview */}
