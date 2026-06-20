@@ -1,0 +1,38 @@
+# Node modules
+node_modules/
+
+# Environment files
+.env
+.env.*.local
+.env.local
+
+# Build outputs
+dist/
+build/
+
+# Vite
+.vite/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+
+# Coverage
+coverage/
+
+# Misc
+*.tgz
+.cache/
+
+# Ignore local secrets and credentials
+.envrc
