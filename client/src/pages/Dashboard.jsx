@@ -92,7 +92,7 @@ const Dashboard = () => {
                 onClick={() => navigate(`/app/builder/${resume._id}`)}
                 className="relative w-full sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 border group hover:shadow-lg transition-all duration-300 cursor-pointer"
                 style={{
-                  background: `liner-gradient(135deg,${baseColor}10, ${baseColor}40)`,
+                   background: `linear-gradient(135deg, ${baseColor}10, ${baseColor}40)`,
                   borderColor: baseColor + "40",
                 }}
               >
@@ -114,7 +114,7 @@ const Dashboard = () => {
                 </p>
                 <div
                   onClick={(e) => e.stopPropagation()}
-                  className="absolute top-1 right-1 hidden items-center group-hover:flex"
+                  className="absolute top-1 right-1 hidden items-center group-hover:flex gap-1"
                 >
                   <TrashIcon
                   onClick={() => {
