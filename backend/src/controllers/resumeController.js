@@ -1,8 +1,9 @@
+import imagekit from "../config/imageKit";
+import Resume from "../models/Resume";
+import fs from "fs";
+
 // controller for creating a new resume
 // POST: /api/resumes/create
-
-import Resume from "../models/Resume";
-
 export const createResume = async (res, req) => {
   try {
     const userId = req.userId;
@@ -91,6 +92,21 @@ export const updateResume = async (res, req) => {
 
     const { resumeId, resumeData, removeBackgrond } = req.body;
     const image = req.file;
+    if (image) {
+      const imageBufferData = fs.createReadStream(image.path);
+      const response = await imagekit.files.upload({
+        file: imageBufferData,
+        fileName: "resume.png",
+        folder: "user-resumes",
+        transformation: {
+          pre:
+            "w-300,h-300,fo-face,z-0.75" +
+            (removeBackgrond ? ",e-bgremove" : ""),
+        },
+      });
+
+      resumeDataCopy.personal_info.image = responce.url;
+    }
 
     let resumeDataCopy = JSON.parse(resumeData);
 
@@ -100,7 +116,7 @@ export const updateResume = async (res, req) => {
       { new: true },
     );
 
-    return res.status(200).json({ meassage:"Saved successfully",resume });
+    return res.status(200).json({ meassage: "Saved successfully", resume });
   } catch (error) {
     return res.status(400).json({ meassage: error.meassage });
   }
