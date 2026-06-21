@@ -63,16 +63,14 @@ export const deleteResume = async (res, req) => {
   }
 };
 
-
 // get resume by id public
 // GET: /api/resumes/public
 
 export const getPublicResumeById = async (res, req) => {
   try {
-   
     const { resumeId } = req.params;
 
-    const resume = await Resume.findOne({ public:true, _id: resumeId });
+    const resume = await Resume.findOne({ public: true, _id: resumeId });
     if (!resume) {
       return res.status(404).json({
         meassage: "Resume not found",
@@ -84,5 +82,26 @@ export const getPublicResumeById = async (res, req) => {
   }
 };
 
+// controller for updating a resume
+// PUT: /api/resumes/update
 
+export const updateResume = async (res, req) => {
+  try {
+    const userId = req.userId;
 
+    const { resumeId, resumeData, removeBackgrond } = req.body;
+    const image = req.file;
+
+    let resumeDataCopy = JSON.parse(resumeData);
+
+    const resume = await Resume.findOneAndUpdate(
+      { userrId, _id: resumeId },
+      resumeDataCopy,
+      { new: true },
+    );
+
+    return res.status(200).json({ meassage:"Saved successfully",resume });
+  } catch (error) {
+    return res.status(400).json({ meassage: error.meassage });
+  }
+};
