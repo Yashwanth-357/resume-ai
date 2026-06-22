@@ -35,9 +35,9 @@ export const registerUser = async (req, res) => {
     newUser.password = undefined;
     return res
       .status(201)
-      .json({ meassage: "User created successfully", token, user: newUser });
+      .json({ message: "User created successfully", token, user: newUser });
   } catch (error) {
-    return res.status(400).json({ meassage: error.meassage });
+    return res.status(400).json({ message: error.message });
   }
 };
 
@@ -62,9 +62,9 @@ export const loginUser = async (req, res) => {
     user.password = undefined;
     return res
       .status(200)
-      .json({ meassage: "Login successful", token, user: user });
+      .json({ message: "Login successful", token, user: user });
   } catch (error) {
-    return res.status(400).json({ meassage: error.meassage });
+    return res.status(400).json({ message: error.message });
   }
 };
 
@@ -84,7 +84,7 @@ export const getUserById = async (req, res) => {
     user.password = undefined;
     return res.status(200).json({ user });
   } catch (error) {
-    return res.status(400).json({ meassage: error.meassage });
+    return res.status(400).json({ message: error.message });
   }
 };
 
@@ -100,6 +100,6 @@ export const getUserResume = async (req, res) => {
     const resumes = await Resume.find({userId})
     return res.status(200).json({ resumes });
   } catch (error) {
-    return res.status(400).json({ meassage: error.meassage });
+    return res.status(400).json({ message: error.message });
   }
 };

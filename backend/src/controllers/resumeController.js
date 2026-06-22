@@ -14,11 +14,11 @@ export const createResume = async (res, req) => {
     //return succes message
 
     return res.status(200).json({
-      meassage: "Resume created successfully",
+      message: "Resume created successfully",
       Resume: newResume,
     });
   } catch (error) {
-    return res.status(400).json({ meassage: error.meassage });
+    return res.status(400).json({ message: error.message });
   }
 };
 
@@ -34,10 +34,10 @@ export const deleteResume = async (res, req) => {
 
     await Resume.findOneAndDelete({ userId, _id: resumeId });
     return res.status(200).json({
-      meassage: "Resume deleted successfully",
+      message: "Resume deleted successfully",
     });
   } catch (error) {
-    return res.status(400).json({ meassage: error.meassage });
+    return res.status(400).json({ message: error.message });
   }
 };
 
@@ -52,7 +52,7 @@ export const deleteResume = async (res, req) => {
     const resume = await Resume.findOne({ userId, _id: resumeId });
     if (!resume) {
       return res.status(404).json({
-        meassage: "Resume not found",
+        message: "Resume not found",
       });
     }
     resume._v = undefined;
@@ -60,7 +60,7 @@ export const deleteResume = async (res, req) => {
     resume.updateAt = undefined;
     return res.status(200).json({ resume });
   } catch (error) {
-    return res.status(400).json({ meassage: error.meassage });
+    return res.status(400).json({ message: error.message });
   }
 };
 
@@ -74,12 +74,12 @@ export const getPublicResumeById = async (res, req) => {
     const resume = await Resume.findOne({ public: true, _id: resumeId });
     if (!resume) {
       return res.status(404).json({
-        meassage: "Resume not found",
+        message: "Resume not found",
       });
     }
     return res.status(200).json({ resume });
   } catch (error) {
-    return res.status(400).json({ meassage: error.meassage });
+    return res.status(400).json({ message: error.message });
   }
 };
 
@@ -116,8 +116,8 @@ export const updateResume = async (res, req) => {
       { new: true },
     );
 
-    return res.status(200).json({ meassage: "Saved successfully", resume });
+    return res.status(200).json({ message: "Saved successfully", resume });
   } catch (error) {
-    return res.status(400).json({ meassage: error.meassage });
+    return res.status(400).json({ message: error.message });
   }
 };
