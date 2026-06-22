@@ -10,8 +10,12 @@ import {
 import { useEffect, useState } from "react";
 import { dummyResumeData } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { api } from "../configs/api";
+import { toast } from "react-hot-toast";
 
 const Dashboard = () => {
+  const { user, token } = useSelector((state) => state.auth);
   const colors = ["#9333ea", "#d97706", "#dc2626", "#0284c7", "#16a34a"];
   const [allResumes, setAllResumes] = useState([]);
   const [showCreateResume, setshowCreateResume] = useState(false);
@@ -26,9 +30,20 @@ const Dashboard = () => {
   };
 
   const createResume = async (event) => {
-    event.preventDefault();
-    setshowCreateResume(false);
-    navigate(`/app/builder/res123`);
+    try {
+      event.preventDefault();
+      const { data } = await api.post(
+        "/api/resume/create",
+        { title },
+        { headers: { Authorization: token } },
+      );
+      setAllResumes([...allResumes, data.resume]);
+      setTitle("");
+      setshowCreateResume(false);
+      navigate(`/app/builder/${data.resume._id}`);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message);
+    }
   };
   const uploadResume = async (event) => {
     event.preventDefault();
@@ -92,7 +107,7 @@ const Dashboard = () => {
                 onClick={() => navigate(`/app/builder/${resume._id}`)}
                 className="relative w-full sm:max-w-36 h-48 flex flex-col items-center justify-center rounded-lg gap-2 border group hover:shadow-lg transition-all duration-300 cursor-pointer"
                 style={{
-                   background: `linear-gradient(135deg, ${baseColor}10, ${baseColor}40)`,
+                  background: `linear-gradient(135deg, ${baseColor}10, ${baseColor}40)`,
                   borderColor: baseColor + "40",
                 }}
               >
@@ -117,11 +132,12 @@ const Dashboard = () => {
                   className="absolute top-1 right-1 hidden items-center group-hover:flex gap-1"
                 >
                   <TrashIcon
-                  onClick={() => {
+                    onClick={() => {
                       deleteResume(resume._id);
                       setTitle(resume.title);
-                    }} 
-                  className="size-7 p-1.5 hover:rounded-full bg-red-300 rounded text-slate-700 transition-colors " />
+                    }}
+                    className="size-7 p-1.5 hover:rounded-full bg-red-300 rounded text-slate-700 transition-colors "
+                  />
                   <PencilIcon
                     onClick={() => {
                       setEditResumeId(resume._id);
