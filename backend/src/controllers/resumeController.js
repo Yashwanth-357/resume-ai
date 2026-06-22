@@ -1,5 +1,5 @@
-import imagekit from "../config/imageKit";
-import Resume from "../models/Resume";
+import imagekit from "../config/imageKit.js";
+import Resume from "../models/Resume.js";
 import fs from "fs";
 
 // controller for creating a new resume
@@ -25,8 +25,6 @@ export const createResume = async (res, req) => {
 // controller for delete a new resume
 // POST: /api/resumes/create
 
-import Resume from "../models/Resume";
-
 export const deleteResume = async (res, req) => {
   try {
     const userId = req.userId;
@@ -44,7 +42,7 @@ export const deleteResume = async (res, req) => {
 // get user resume by id
 // GET: /api/resumes/get
 
-export const deleteResume = async (res, req) => {
+export const getResume = async (res, req) => {
   try {
     const userId = req.userId;
     const { resumeId } = req.params;
