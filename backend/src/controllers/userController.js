@@ -1,7 +1,6 @@
 import User from "../models/User.model.js";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { use } from "react";
 import Resume from "../models/Resume.js";
 
 const generateToken = (userId) => {
@@ -76,7 +75,7 @@ export const getUserById = async (req, res) => {
     const userId = req.userId;
 
     const user = await User.findById(userId);
-    if (!use) {
+    if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 

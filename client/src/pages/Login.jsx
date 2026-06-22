@@ -1,11 +1,15 @@
 import { Lock, Mail, User2Icon } from "lucide-react";
 import { useState } from "react";
+import api from "../configs/api";
+import { useDispatch } from "react-redux";
+import { login } from "../features/authSlice";
+import toast from "react-hot-toast";
 
 const Login = () => {
-
-  const query = new URLSearchParams(window.location.search)
-  const urlstate = query.get('state')
-  const [state, setState] = useState(urlstate||"login");
+  const dispatch = useDispatch();
+  const query = new URLSearchParams(window.location.search);
+  const urlstate = query.get("state");
+  const [state, setState] = useState(urlstate || "login");
 
   const [formData, setFormData] = useState({
     name: "",
@@ -15,6 +19,14 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    try {
+      const { data } = await api.post(`/api/users/${state}`, formData);
+      dispatch(login(data));
+      localStorage.setItem("token", data.token);
+      toast.success(data.message)
+    } catch (error) {
+      toast(error?.response?.data?.message || error.message)
+    }
   };
 
   const handleChange = (e) => {
@@ -33,7 +45,7 @@ const Login = () => {
         <p className="text-gray-500 text-sm mt-2">Please {state} to continue</p>
         {state !== "login" && (
           <div className="flex items-center mt-6 w-full bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
-           <User2Icon size={16} color="#6B7280"/>
+            <User2Icon size={16} color="#6B7280" />
             <input
               type="text"
               name="name"
@@ -46,7 +58,7 @@ const Login = () => {
           </div>
         )}
         <div className="flex items-center w-full mt-4 bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
-          <Mail size={13} color="#6B7280"/>
+          <Mail size={13} color="#6B7280" />
           <input
             type="email"
             name="email"
@@ -58,7 +70,7 @@ const Login = () => {
           />
         </div>
         <div className="flex items-center mt-4 w-full bg-white border border-gray-300/80 h-12 rounded-full overflow-hidden pl-6 gap-2">
-          <Lock size={13} color="#6B7280"/>
+          <Lock size={13} color="#6B7280" />
           <input
             type="password"
             name="password"
