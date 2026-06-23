@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 // import { dummyResumeData } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import  api  from "../configs/api";
+import api from "../configs/api";
 import { toast } from "react-hot-toast";
 import pdfToText from "react-pdftotext";
 
@@ -30,10 +30,9 @@ const Dashboard = () => {
 
   const loadAllResumes = async () => {
     try {
-      const { data } = await api.get(
-        "/api/users/resume",
-        { headers: { Authorization: token } },
-      );
+      const { data } = await api.get("/api/users/resume", {
+        headers: { Authorization: token },
+      });
       setAllResumes(data.resumes);
     } catch (error) {
       toast.error(error?.response?.data?.message || error.message);
@@ -75,14 +74,41 @@ const Dashboard = () => {
     }
   };
   const editTitle = async (event) => {
-    event.preventDefault();
+    try {
+      event.preventDefault();
+      const { data } = await api.put(
+        `/api/resumes/update`,
+        { resumeId: editResumeId, resumeData: { title } },
+        {
+          headers: { Authorization: token },
+        },
+      );
+      setAllResumes(
+        allResumes.map((resume) =>
+          resume._id === editResumeId ? { ...resume, title } : resume,
+        ),
+      );
+      setTitle("");
+      setEditResumeId("");
+      toast.success(data.message);
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message);
+    }
   };
   const deleteResume = async (resumeId) => {
-    const confirm = window.confirm(
-      "Are you sure you want to delete this resume",
-    );
-    if (confirm) {
-      setAllResumes((prev) => prev.filter((resume) => resume._id !== resumeId));
+    try {
+      const confirm = window.confirm(
+        "Are you sure you want to delete this resume",
+      );
+      if (confirm) {
+        const { data } = await api.post(`/api/resumes/delete/${resumeId}`, {}, {
+          headers: { Authorization: token },
+        });
+        setAllResumes(allResumes.filter((resume) => resume._id != resumeId));
+        toast.success(data.message);
+      }
+    } catch (error) {
+      toast.error(error?.response?.data?.message || error.message);
     }
   };
 
@@ -253,8 +279,10 @@ const Dashboard = () => {
                   />
                 </div>
                 <button className="w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 transition-colors">
-                  {isLoading && <LoaderCircleIcon className="animate-spin size-4 text-white"/>}
-                  {isLoading?'Uploading...':'Uploade Resume'}
+                  {isLoading && (
+                    <LoaderCircleIcon className="animate-spin size-4 text-white" />
+                  )}
+                  {isLoading ? "Uploading..." : "Uploade Resume"}
                 </button>
                 <XIcon
                   className="absolute top-4 right-4 text-slate-400 hover:text-slate-600 cursor-pointer transition-colors"
