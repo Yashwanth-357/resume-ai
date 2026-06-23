@@ -73,6 +73,9 @@ export const loginUser = async (req, res) => {
 export const getUserById = async (req, res) => {
   try {
     const userId = req.userId;
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized: No user ID found" });
+    }
 
     const user = await User.findById(userId);
     if (!user) {
@@ -83,7 +86,8 @@ export const getUserById = async (req, res) => {
     user.password = undefined;
     return res.status(200).json({ user });
   } catch (error) {
-    return res.status(400).json({ message: error.message });
+    console.error("getUserById error:", error);
+    return res.status(400).json({ message: "Bad Request: " + error.message });
   }
 };
 

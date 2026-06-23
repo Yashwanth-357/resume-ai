@@ -4,7 +4,7 @@ import fs from "fs";
 
 // controller for creating a new resume
 // POST: /api/resumes/create
-export const createResume = async (res, req) => {
+export const createResume = async (req, res) => {
   try {
     const userId = req.userId;
     const { title } = req.body;
@@ -25,7 +25,7 @@ export const createResume = async (res, req) => {
 // controller for delete a new resume
 // POST: /api/resumes/create
 
-export const deleteResume = async (res, req) => {
+export const deleteResume = async (req, res) => {
   try {
     const userId = req.userId;
     const { resumeId } = req.params;
@@ -42,7 +42,7 @@ export const deleteResume = async (res, req) => {
 // get user resume by id
 // GET: /api/resumes/get
 
-export const getResume = async (res, req) => {
+export const getResume = async (req, res) => {
   try {
     const userId = req.userId;
     const { resumeId } = req.params;
@@ -65,7 +65,7 @@ export const getResume = async (res, req) => {
 // get resume by id public
 // GET: /api/resumes/public
 
-export const getPublicResumeById = async (res, req) => {
+export const getPublicResumeById = async (req, res) => {
   try {
     const { resumeId } = req.params;
 
@@ -84,7 +84,7 @@ export const getPublicResumeById = async (res, req) => {
 // controller for updating a resume
 // PUT: /api/resumes/update
 
-export const updateResume = async (res, req) => {
+export const updateResume = async (req, res) => {
   try {
     const userId = req.userId;
 

@@ -48,7 +48,7 @@ const Hero = () => {
             >
               Login
             </Link>
-            <Link to='/app' className='hidden md:block px-8 py-2 bg-green-500 hover:bg-green-700 active:scale-95 transition-all rounded-full text-white'hidden={!user} >
+            <Link to='/app' className='hidden md:block px-8 py-2 bg-indigo-500 hover:bg-indigo-700 active:scale-95 transition-all rounded-full text-white'hidden={!user} >
             Dashboard
             </Link>
           </div>
