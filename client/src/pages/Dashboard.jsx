@@ -9,7 +9,6 @@ import {
   XIcon,
 } from "lucide-react";
 import { useEffect, useState } from "react";
-// import { dummyResumeData } from "../assets/assets";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import api from "../configs/api";
@@ -17,7 +16,7 @@ import { toast } from "react-hot-toast";
 import pdfToText from "react-pdftotext";
 
 const Dashboard = () => {
-  const { user, token } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
   const colors = ["#9333ea", "#d97706", "#dc2626", "#0284c7", "#16a34a"];
   const [allResumes, setAllResumes] = useState([]);
   const [showCreateResume, setshowCreateResume] = useState(false);
