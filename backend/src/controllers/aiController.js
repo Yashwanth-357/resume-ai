@@ -61,7 +61,9 @@ export const enhanceJobDesription = async (req, res) => {
     const enhancedContent = response.choices[0].message.content;
     return res.status(200).json({ enhancedContent });
   } catch (error) {
-    return res.status(400).json({ message: error.message });
+    const statusCode = error.status || 500;
+    console.error("AI API Error:", error.message);
+    return res.status(statusCode).json({ message: error.message });
   }
 };
 
