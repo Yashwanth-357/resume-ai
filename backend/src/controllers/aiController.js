@@ -12,8 +12,9 @@ export const enhanceProfessionalSummary = async (req, res) => {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
+    console.log("Using model gemini-2.5-flash for professional summary...");
     const response = await ai.chat.completions.create({
-      model: process.env.OPENAI_MODEL,
+      model: "gemini-2.5-flash",
       messages: [
         {
           role: "system",
@@ -45,8 +46,9 @@ export const enhanceJobDesription = async (req, res) => {
       return res.status(400).json({ message: "Missing required fields" });
     }
 
+    console.log("Using model gemini-2.5-flash for professional summary...");
     const response = await ai.chat.completions.create({
-      model: process.env.OPENAI_MODEL,
+      model: "gemini-2.5-flash",
       messages: [
         {
           role: "system",
