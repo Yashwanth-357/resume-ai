@@ -12,3 +12,15 @@ Resume AI is a full-stack web application built with React, Node.js, and MongoDB
 - **[Lucide React](https://lucide.dev/)**: Beautiful and consistent SVG icons for the interface.
 - **[React Hot Toast](https://react-hot-toast.com/)**: For displaying clean and responsive notification toasts.
 - **[React PDF to Text](https://www.npmjs.com/package/react-pdftotext)**: Utility to extract and parse text from PDF uploads.
+
+## Backend Dependencies
+
+- **[Express](https://expressjs.com/)**: Fast, unopinionated, minimalist web framework for Node.js.
+- **[Mongoose](https://mongoosejs.com/)**: Elegant MongoDB object modeling for Node.js.
+- **[OpenAI SDK](https://github.com/openai/openai-node)**: Used to integrate with Google's Gemini AI via their OpenAI compatibility layer.
+- **[JSON Web Token (JWT)](https://jwt.io/)**: For secure, stateless user authentication and authorization.
+- **[Bcrypt.js](https://www.npmjs.com/package/bcryptjs)**: For securely hashing user passwords before database storage.
+- **[ImageKit Node.js](https://docs.imagekit.io/api-reference/upload-images)**: Integration for uploading and managing profile pictures.
+- **[Multer](https://github.com/expressjs/multer)**: Middleware for handling `multipart/form-data`, primarily used for file uploads.
+- **[Cors](https://expressjs.com/en/resources/middleware/cors.html)**: Middleware to enable Cross-Origin Resource Sharing.
+- **[Dotenv](https://github.com/motdotla/dotenv)**: Module to load environment variables from a `.env` file.
