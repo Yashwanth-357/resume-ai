@@ -2,6 +2,16 @@
 
 Resume AI is a full-stack web application built with React, Node.js, and MongoDB that allows users to easily build, manage, and customize their resumes. It features direct integration with Google's Gemini AI to automatically enhance your professional summaries and job descriptions, ensuring they are impactful and ATS-friendly.
 
+## Features
+
+- AI-powered resume summary and job description enhancement
+- Guided resume builder with editable experience, education, skills, and projects
+- Multiple resume templates and live preview support
+- User authentication with secure account management
+- PDF resume text extraction and upload workflow
+- Profile image upload and customization
+- Responsive React interface with backend API integration
+
 ## Frontend Dependencies
 
 - **[React](https://react.dev/)**: The core UI library for building the user interfaces.
