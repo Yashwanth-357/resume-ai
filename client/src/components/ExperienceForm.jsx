@@ -36,7 +36,7 @@ const ExperienceForm = ({ data = [], onChange }) => {
   const generatDescription = async (index) => {
     setGeneratingIndex(index);
     const experience = data[index];
-    const prompt = `enhance this job description ${experience.description} for the position of ${experience.position} at ${experience.company}.`;
+    const prompt = `enhance this job description: ${experience.description || ''} ${experience.position ? `for the position of ${experience.position}` : ''} ${experience.company ? `at ${experience.company}` : ''}.`;
     try {
       const { data } = await api.post(
         "/api/ai/enhance-job-sum",
@@ -148,11 +148,7 @@ const ExperienceForm = ({ data = [], onChange }) => {
 
                   <button
                     onClick={() => generatDescription(index)}
-                    disabled={
-                      generatingIndex === index ||
-                      !experience.position ||
-                      !experience.company
-                    }
+                    disabled={generatingIndex === index}
                     className="flex items-center gap-1 px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50"
                   >
                     {generatingIndex === index ? (
