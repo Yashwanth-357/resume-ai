@@ -15,6 +15,7 @@ resumeRouter.post("/create", protect, createResume);
 resumeRouter.put("/update", upload.single("image"), protect, updateResume);
 resumeRouter.post("/delete/:resumeId", protect, deleteResume);
 resumeRouter.post("/get/:resumeId", protect, getResume);
+resumeRouter.get("/public/:resumeId", getPublicResumeById);
 resumeRouter.post("/public/:resumeId", getPublicResumeById);
 
 export default resumeRouter;

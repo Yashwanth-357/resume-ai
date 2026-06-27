@@ -1,30 +1,72 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { dummyResumeData } from "../assets/assets";
+import { useParams, Link } from "react-router-dom";
+import api from "../configs/api";
 import ResumePreview from "../components/ResumePreview";
 import Loader from "../components/Loader";
 import { ArrowLeftIcon } from "lucide-react";
 
 const Preview = () => {
   const { resumeId } = useParams();
-
   const [isLoading, setIsLoading] = useState(true);
-
   const [resumeData, setResumeData] = useState(null);
+  const [error, setError] = useState("");
 
-  const loadResume = async () => {
-    setResumeData(
-      dummyResumeData.find((resume) => resume._id === resumeId || null),
-      setIsLoading(false),
-    );
-  };
   useEffect(() => {
-    loadResume();
-  }, []);
+    let isMounted = true;
 
-  return resumeData ? (
+    const loadResume = async () => {
+      try {
+        setIsLoading(true);
+        setError("");
+        const { data } = await api.get(`/api/resumes/public/${resumeId}`);
+        if (isMounted) {
+          setResumeData(data.resume || null);
+        }
+      } catch (err) {
+        if (isMounted) {
+          setResumeData(null);
+          setError(err?.response?.data?.message || "Resume not found or is not public.");
+        }
+      } finally {
+        if (isMounted) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    if (resumeId) {
+      loadResume();
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [resumeId]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
+  if (!resumeData) {
+    return (
+      <div className="flex min-h-screen flex-col items-center justify-center bg-slate-100 px-6 text-center">
+        <p className="text-4xl font-semibold text-slate-500">
+          {error || "Resume not found 🤡"}
+        </p>
+        <Link
+          to="/"
+          className="mt-6 inline-flex items-center rounded-full bg-indigo-500 px-6 py-2 text-white transition-colors hover:bg-indigo-600"
+        >
+          <ArrowLeftIcon className="mr-2 size-4" />
+          Go to home page
+        </Link>
+      </div>
+    );
+  }
+
+  return (
     <div className="bg-slate-100">
-      <div className="max-w-3xl mx-auto py-10">
+      <div className="mx-auto max-w-3xl py-10">
         <ResumePreview
           data={resumeData}
           template={resumeData.template}
@@ -32,23 +74,6 @@ const Preview = () => {
           classes="py-4 bg-white"
         />
       </div>
-    </div>
-  ) : (
-    <div>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <div className="flex flex-col items-center justify-center h-screen">
-          <p className="text-center text-6xl text-slate-400">Resume not found 🤡</p>
-          <a
-            href="/"
-            className="mt-6 m-1 flex h-9 items-center rounded-full bg-indigo-500 px-6 text-white ring-1 ring-indigo-400 ring-offset-1 transition-colors hover:bg-indigo-600"
-          >
-            <ArrowLeftIcon className="mr-2 size-4" />
-            go to home page
-          </a>
-        </div>
-      )}
     </div>
   );
 };

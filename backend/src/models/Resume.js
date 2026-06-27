@@ -22,7 +22,7 @@ const ResumeShema = new mongoose.Schema(
       type: String,
       default: "#3B82F6",
     },
-    professinal_summary: {
+    professional_summary: {
       type: String,
       default: "",
     },
@@ -58,13 +58,13 @@ const ResumeShema = new mongoose.Schema(
         default: "",
       },
     },
-    exprience: [
+    experience: [
       {
         company: { type: String },
         position: { type: String },
         start_date: { type: String },
         end_date: { type: String },
-        descripation: { type: String },
+        description: { type: String },
         is_current: { type: Boolean },
       },
     ],
@@ -72,7 +72,7 @@ const ResumeShema = new mongoose.Schema(
       {
         name: { type: String },
         type: { type: String },
-        descripation: { type: String },
+        description: { type: String },
       },
     ],
     education: [

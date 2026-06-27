@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useCallback, useEffect, useState } from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import PersonalInfoForm from "../components/PersonalInfoForm";
 import ResumePreview from "../components/ResumePreview";
 import TemplateSelector from "../components/TemplateSelector";
@@ -31,6 +31,7 @@ import api from "../configs/api";
 const ResumeBilder = () => {
   const { token } = useSelector((state) => state.auth);
   const { resumeId } = useParams();
+  const navigate = useNavigate();
   const [resumeData, setResumeData] = useState({
     _id: "",
     titel: "",
@@ -48,9 +49,9 @@ const ResumeBilder = () => {
   const [activeSectionIndex, setActiveSectionIndex] = useState(0);
   const [removeBackground, setRemoveBackground] = useState(false);
 
-  const loadExistingResume = async () => {
+  const loadExistingResume = useCallback(async () => {
     try {
-      const { data } = await api.post("/api/resumes/get/" + resumeId, {}, {
+      const { data } = await api.post(`/api/resumes/get/${resumeId}`, {}, {
         headers: { Authorization: token },
       });
       if (data.resume) {
@@ -60,7 +61,7 @@ const ResumeBilder = () => {
     } catch (error) {
       console.log(error.message);
     }
-  };
+  }, [resumeId, token]);
   const sections = [
     { id: "personal", name: "Personal info", icon: User },
     { id: "summary", name: "Summary ", icon: FileText },
@@ -73,26 +74,45 @@ const ResumeBilder = () => {
   const activeSection = sections[activeSectionIndex];
 
   useEffect(() => {
-    loadExistingResume();
-  }, []);
+    let isMounted = true;
+
+    const init = async () => {
+      await loadExistingResume();
+      if (!isMounted) return;
+    };
+
+    if (resumeId) {
+      init();
+    }
+
+    return () => {
+      isMounted = false;
+    };
+  }, [loadExistingResume, resumeId]);
 
   const changeResumeVisibility = async () => {
     try {
+      const nextPublic = !resumeData.public;
       const formData = new FormData();
       formData.append("resumeId", resumeId);
-      formData.append(
-        "resumeData",
-        JSON.stringify({ public: !resumeData.public }),
-      );
+      formData.append("resumeData", JSON.stringify({ public: nextPublic }));
       const { data } = await api.put("/api/resumes/update", formData, {
         headers: {
           Authorization: token,
         },
       });
-      setResumeData({ ...resumeData, public: !resumeData.public });
-      toast.success(data.message);
+
+      setResumeData((prev) => ({ ...prev, public: nextPublic }));
+
+      if (nextPublic) {
+        toast.success("Resume is now public. Opening preview...");
+        navigate(`/view/${resumeId}`);
+      } else {
+        toast.success("Resume is now private.");
+      }
     } catch (error) {
       console.error("Error saving resume:", error);
+      toast.error("Unable to update visibility right now.");
     }
   };
 
