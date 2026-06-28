@@ -12,6 +12,33 @@ Resume AI is a full-stack web application built with React, Node.js, and MongoDB
 - Profile image upload and customization
 - Responsive React interface with backend API integration
 
+## 📂 Project Structure and API endpoints
+
+### Project structure
+
+- `client/`
+  - React frontend app
+  - `src/pages/` - application pages like dashboard, builder, preview, login
+  - `src/components/` - reusable UI components and resume templates
+  - `src/configs/api.js` - Axios setup for backend communication
+- `backend/`
+  - Express backend API server
+  - `src/config/` - database, auth, upload, and ImageKit configuration
+  - `src/controllers/` - request handlers for users, resumes, and AI endpoints
+  - `src/routes/` - API route definitions
+  - `src/models/` - MongoDB data models
+
+### API endpoints
+
+- `POST /api/users/register` - create a new user account
+- `POST /api/users/login` - authenticate user and receive a token
+- `POST /api/resumes/create` - create a new resume (protected)
+- `PUT /api/resumes/update` - update an existing resume (protected)
+- `POST /api/resumes/delete/:resumeId` - delete a resume (protected)
+- `POST /api/resumes/get/:resumeId` - fetch a specific resume for the logged-in user (protected)
+- `GET /api/resumes/public/:resumeId` - fetch a public resume for preview
+- `POST /api/ai/...` - AI-assisted resume enhancement routes
+
 ## Frontend Dependencies
 
 - **[React](https://react.dev/)**: The core UI library for building the user interfaces.
