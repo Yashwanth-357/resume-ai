@@ -61,3 +61,33 @@ Resume AI is a full-stack web application built with React, Node.js, and MongoDB
 - **[Multer](https://github.com/expressjs/multer)**: Middleware for handling `multipart/form-data`, primarily used for file uploads.
 - **[Cors](https://expressjs.com/en/resources/middleware/cors.html)**: Middleware to enable Cross-Origin Resource Sharing.
 - **[Dotenv](https://github.com/motdotla/dotenv)**: Module to load environment variables from a `.env` file.
+
+## 📸 Screenshots
+
+### Authentication & Landing
+
+| Sign In | Sign Up | Home Page |
+|---------|---------|-----------|
+| ![Sign In](./client/src/assets/Signin.png) | ![Sign Up](./client/src/assets/Signup.png) | ![Home Page](./client/src/assets/home.png) |
+
+### Dashboard & Resume Management
+
+| Dashboard | Features Overview | Testimonials |
+|-----------|-------------------|--------------|
+| ![Dashboard](./client/src/assets/Dashboard.png) | ![Features](./client/src/assets/Features.png) | ![Testimonials](./client/src/assets/Testimonials.png) |
+
+### Resume Builder - Form Sections
+
+| Personal Information | Professional Experience | Professional Summary |
+|---------------------|------------------------|----------------------|
+| ![Personal Information](./client/src/assets/Personal%20Information.png) | ![Professional Experience](./client/src/assets/Professional%20Experience.png) | ![Professional Summary](./client/src/assets/Professional%20Summary.png) |
+
+| Education | Projects | Skills |
+|-----------|----------|--------|
+| ![Education](./client/src/assets/Education.png) | ![Projects](./client/src/assets/Project.png) | ![Skills](./client/src/assets/Skills.png) |
+
+### Additional Views
+
+| Profile Picture | Preview Screenshot 1 | Preview Screenshot 2 |
+|-----------------|----------------------|----------------------|
+| ![Profile Picture](./client/src/assets/dummy_profile.png) | ![Preview 1](./client/src/assets/Screenshot%202026-06-29%20211746.png) | ![Preview 2](./client/src/assets/Screenshot%202026-06-29%20212531.png) |
