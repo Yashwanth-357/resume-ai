@@ -91,3 +91,14 @@ Resume AI is a full-stack web application built with React, Node.js, and MongoDB
 | Profile Picture | Preview Screenshot 1 | Preview Screenshot 2 |
 |-----------------|----------------------|----------------------|
 | ![Profile Picture](./client/src/assets/dummy_profile.png) | ![Preview 1](./client/src/assets/Screenshot%202026-06-29%20211746.png) | ![Preview 2](./client/src/assets/Screenshot%202026-06-29%20212531.png) |
+
+## 👨‍💻 Author
+
+**Yashwanth**
+
+Passionate Full-Stack MERN Developer focused on building modern, scalable web applications and exploring AI-powered solutions.
+
+- GitHub: https://github.com/Yashwanth-357
+- LinkedIn: https://www.linkedin.com/in/yashwanth357
+- Portfolio: **Under Development 🚧**
+- Email: yashwanth.v357edu@gmail.com
